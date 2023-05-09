@@ -18,6 +18,7 @@ mongoose
 
 // http logger middleware
 app.use(morgan("dev"));
+app.use(express.json());
 
 
 // router middleware
