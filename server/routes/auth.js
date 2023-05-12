@@ -7,14 +7,12 @@ const router = express.Router();
 import { requireSignin } from "../middlewares/auth.js";
 
 // controllers
-import { register, login } from "../controllers/auth.js";
+import { register, login, secret } from "../controllers/auth.js";
 
 router.post("/register", register);
 router.post("/login", login);
 
-router.get("/secret", requireSignin, (req, res) => {
-    res.json({message: " you can see teh secret route"})
-});
+router.get("/secret", requireSignin, secret);
 
 
 export default router;

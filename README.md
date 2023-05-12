@@ -1,7 +1,7 @@
 
 San Diego Global Knowledge University, Full Stack course.
 
-Full Stack CAPSTONE project, Cohort 34, 2023.
+Full Stack CAPSTONE project, Cohort 34, Winter-2022 to Summer-2023.
 
 Project began on May 2, 2023 and will be completed on TBD.
 
