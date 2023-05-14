@@ -20,4 +20,4 @@ export const hashPassword = (password) => {
 // this compares the 1st instance password to the hash for subsequent log in
 export const comparePassword = (password, hashed) => {
     return bcrypt.compare(password, hashed);
-};
+}; 
