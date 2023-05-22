@@ -1,9 +1,13 @@
+import Jumbotron from "../componets/cards/Jumbotron";
+
+
 export default function Home() {
 
     return (
   
       <div> 
-      <h1>Starting the Home page</h1>
+        <Jumbotron title="Home" subTitle="Welcome, Adventurer, your tomes await inside!"/>
+      
       </div>
     );
   }
