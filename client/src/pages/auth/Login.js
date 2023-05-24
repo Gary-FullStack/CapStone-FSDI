@@ -1,13 +1,10 @@
-// i'm using usestate to hold the registration values while the user is filling out the form
 import { useState } from "react";
-import Jumbotron from "../componets/cards/Jumbotron";
+import Jumbotron from "../../components/cards/Jumbotron";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+export default function Login() {
 
-export default function Register() {
-
-    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -15,14 +12,14 @@ export default function Register() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try{
-        const { data } = await axios.post(`${process.env.REACT_APP_API}/register`, 
-        {name, email, password});
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/login`, 
+        {email, password});
         console.log(data);
 
         if(data?.error) {
           toast.error(data.error);
         } else {
-          toast.success("Congratualations Adventurer, you have succesfully registered");
+          toast.success("Welcome back Adventurer!");
         }
         
       }catch (err) {
@@ -31,12 +28,9 @@ export default function Register() {
       }
     };
 
-
-    return (
-  
+    return (  
       <div> 
-        <Jumbotron title="Register" subTitle="Adventurer, please register for an account here!"/>
-          
+        <Jumbotron title="Login" subTitle="Adventurer, Log-in here!"/>          
 
         <div className="container mt-5">
 
@@ -44,19 +38,13 @@ export default function Register() {
 
             <div className="col-md-6 offset-md-3">
               <form onSubmit={handleSubmit}>
-                <input type="text" className="form-control mb-4 p-2" 
-                placeholder="Enter your name"
-                value={name} 
-                // the entered value is saved in the useState
-                onChange={(e) => setName(e.target.value)}
-                autoFocus  
-                />
-
+                
                 <input type="email" className="form-control mb-4 p-2" 
                 placeholder="Enter your E-mail address"
                 value={email} 
                 // the entered value is saved in the useState
                 onChange={(e) => setEmail(e.target.value)}
+                autoFocus
                 />
 
                 <input type="password" className="form-control mb-4 p-2" 
@@ -78,4 +66,9 @@ export default function Register() {
       </div>
     );
 }
+  
+
+
+
+
   
