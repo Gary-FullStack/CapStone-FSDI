@@ -3,13 +3,20 @@ import { useState } from "react";
 import Jumbotron from "../../components/cards/Jumbotron";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Register() {
 
+    // use states
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    // hooks
+    const [auth, setAuth] = useAuth();
+    const navigate = useNavigate();
 
     // I am preventing the default reloading of the page after submit.
     const handleSubmit = async (e) => {
@@ -21,8 +28,15 @@ export default function Register() {
 
         if(data?.error) {
           toast.error(data.error);
-        } else {
+        } else {          
+          // save register data in local storage
+          localStorage.setItem("auth", JSON.stringify(data));
+
+          // after success use hook to set the context with specific data
+          setAuth({ ...auth, token: data.token, user: data.user});
           toast.success("Congratualations Adventurer, you have succesfully registered");
+          // and then redirect the user 
+          navigate("/dashboard");
         }
         
       }catch (err) {

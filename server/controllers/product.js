@@ -99,7 +99,7 @@ export const photo = async (req, res) => {
     }
 };
 
-// for deleteing products from DB
+// for deleting products from DB
 export const remove = async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(
