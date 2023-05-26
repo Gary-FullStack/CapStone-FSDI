@@ -3,7 +3,7 @@ import Jumbotron from "../../components/cards/Jumbotron";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 export default function Login() {
@@ -15,6 +15,7 @@ export default function Login() {
     // hooks
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     // I am preventing the default reloading of the page after submit.
@@ -35,7 +36,7 @@ export default function Login() {
           setAuth({ ...auth, token: data.token, user: data.user});
           toast.success("Welcome back Adventurer!");
           // redirect the user
-          navigate ("/dashboard");
+          navigate (location.state || "/dashboard");
         }
         
       }catch (err) {
