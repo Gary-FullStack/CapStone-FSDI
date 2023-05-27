@@ -4,7 +4,8 @@ import AdminMenu from "../../components/nav/AdminMenu";
 
 
 
-export default function AdminDashboard () {
+
+export default function AdminProduct() {
     const [auth, setAuth] = useAuth ();
 
     return (
@@ -21,22 +22,10 @@ export default function AdminDashboard () {
                     </div>
 
                     <div className="col-md-9">
-                        <div className="p-3 mt-2 bg-light">Admin Info</div>
-                        <ul className="list-group">
-                            <li className="list-group-item">
-                                {auth?.user?.name}
-                            </li>
-                            <li className="list-group-item">
-                                {auth?.user?.email}
-                            </li>
-                            <li className="list-group-item">
-                                User role: Admin
-                            </li>
+                        <div className="p-3 mt-2 bg-light">Create new Inventory</div>
 
-
-                        </ul>
-
-
+                        <p> to do:  create prods form</p>
+                        
                     </div>
 
                 </div>

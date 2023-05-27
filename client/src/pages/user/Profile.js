@@ -4,7 +4,7 @@ import UserMenu from "../../components/nav/UserMenu";
 
 
 
-export default function UserDashboard () {
+export default function UserProfile() {
     const [auth, setAuth] = useAuth ();
 
     return (
@@ -21,22 +21,8 @@ export default function UserDashboard () {
                     </div>
 
                     <div className="col-md-9">
-                        <div className="p-3 mt-2 bg-light">User Account Info</div>
-                        <ul className="list-group">
-                            <li className="list-group-item">
-                                {auth?.user?.name}
-                            </li>
-                            <li className="list-group-item">
-                                {auth?.user?.email}
-                            </li>
-                            <li className="list-group-item">
-                                User role: Customer
-                            </li>
-
-
-                        </ul>
-
-
+                        <div className="p-3 mt-2 bg-light">User Profile</div>
+                        add an update form
                     </div>
 
                 </div>
