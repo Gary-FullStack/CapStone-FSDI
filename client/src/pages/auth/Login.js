@@ -36,7 +36,8 @@ export default function Login() {
           setAuth({ ...auth, token: data.token, user: data.user});
           toast.success("Welcome back Adventurer!");
           // redirect the user
-          navigate (location.state || "/dashboard");
+          navigate (location.state || 
+            `/dashboard/${data?.user?.role === 1 ? "admin" : "user"}`);
         }
         
       }catch (err) {

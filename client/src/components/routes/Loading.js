@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 // this function sends a message to an unauthed user trying to access protected routes 
 // and then redirects to log in.
 
-export default function Loading() {
+export default function Loading({ path = "login" }) {
 
     const [count, setCount] = useState(4);
 
@@ -16,7 +16,7 @@ export default function Loading() {
         const interval = setInterval(() =>{
             setCount((currentCount) => --currentCount);
         }, 1000);
-        count === 0 && navigate("/login", {
+        count === 0 && navigate(`/${path}`, {
             state: location.pathname,
         });
 

@@ -5,7 +5,7 @@ import Loading from "./Loading";
 import axios  from 'axios';
 
 
-export default function PrivateRoute() {
+export default function AdminRoute() {
 
     // from context
     const [auth, setAuth] = useAuth();
@@ -15,19 +15,18 @@ export default function PrivateRoute() {
 
 
 
-    useEffect(() =>{
-        const authCheck = async () => {
-
-            const { data } = await axios.get(`/auth-check`);               
+    useEffect(() => {
+        const adminCheck = async () => {
+            const { data } = await axios.get(`/admin-check`);               
             if (data.ok) {
                 setOk(true);
             }else {
-                setOk(false); 
+                setOk(false);
             }
         };
 
-        if (auth?.token) authCheck();
+        if (auth?.token) adminCheck();
     }, [auth?.token]);
 
-    return ok ? <Outlet /> : <Loading />;
-};
+    return ok ? <Outlet /> : <Loading path="" />;
+}; 

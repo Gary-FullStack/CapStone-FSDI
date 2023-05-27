@@ -5,8 +5,9 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/user/Dashboard";
+import AdminDashboard from "./pages/admin/Dashboard";
 import PrivateRoute from "./components/routes/PrivateRoute";
-import Secret from "./pages/Secret";
+import AdminRoute from "./components/routes/AdminRoute";
 import notFound from "../src/images/404-book.png"
 
 // 404 page
@@ -29,11 +30,17 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />        
-         
+        <Route path="/register" element={<Register />} />   
+
+
+         {/* user private route */}
         <Route path="/dashboard" element={<PrivateRoute/>} >
-          <Route path="" element={<Dashboard/>} />
-          <Route path="secret" element={<Secret />}/>
+          <Route path="user" element={<Dashboard/>} />          
+        </Route>
+
+          {/* Admin private routes */}
+        <Route path="/dashboard" element={<AdminRoute/>} >
+          <Route path="admin" element={<AdminDashboard/>} />
         </Route>
 
         <Route path="*" element={<PageNotFound />} replace />
@@ -43,6 +50,6 @@ export default function App() {
     
   );
 }
-
+ 
 
 
