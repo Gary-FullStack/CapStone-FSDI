@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useAuth } from "../../context/auth";
 import Jumbotron from './../../components/cards/Jumbotron';
 import AdminMenu from "../../components/nav/AdminMenu"
@@ -8,8 +8,22 @@ import toast from 'react-hot-toast';
 
 export default function AdminCategory() {
     const [auth, setAuth] = useAuth();
-
     const [name, setName] = useState("");
+    const [categories, setCategories] = useState([]);
+
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = async () => {
+        try{
+            const { data } = await axios.get("/categories");
+            setCategories(data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,6 +32,7 @@ export default function AdminCategory() {
             if(data?.error) {
                 toast.error(data.error);
             }else {
+                loadCategories();
                 setName("");
                 toast.success(`${data.name} has been created.`);
             }
@@ -53,19 +68,19 @@ export default function AdminCategory() {
                                 onChange={(e) => setName(e.target.value)} />
                                 <button className="btn btn-primary mt-3">Click to Submit</button>
                             </form>
+                        </div> 
 
-                        </div>
-                        
+                         <hr />
+
+                          {/* category map */}
+                            <div className="col">{categories?.map((c) => (
+                                <button key={c._id} className="btn btn-outline-primary m-3">{c.name}</button>
+                                    
+                                ))}
+                            </div>                     
                     </div>
-
                 </div>
-
-            </div>
-            
-           
-        </>
-
-        
+            </div>           
+        </>        
     );
-
 }
