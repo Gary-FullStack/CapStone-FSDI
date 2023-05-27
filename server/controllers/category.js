@@ -4,8 +4,8 @@ import slugify from "slugify";
 export const create = async (req, res) => {
     try{
         const { name } = req.body;
-        if(!name.trim()) {
-            return res.jason({ error: "whoa now, slow down!  A name is required!"});
+        if (!name.trim()) {
+            return res.jason({ error: "whoa A name is required"});
         }
         const existingCategory = await Category.findOne({ name });
         if(existingCategory) {
