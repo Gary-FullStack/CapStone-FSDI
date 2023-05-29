@@ -4,12 +4,20 @@ import Jumbotron from './../../components/cards/Jumbotron';
 import AdminMenu from "../../components/nav/AdminMenu"
 import axios from "axios";
 import toast from 'react-hot-toast';
+import CategoryForm from "../../components/forms/CategoryForm";
+import {Modal} from "antd";
 
 
 export default function AdminCategory() {
     const [auth, setAuth] = useAuth();
+
+    // state
     const [name, setName] = useState("");
     const [categories, setCategories] = useState([]);
+    // modal state
+    const [open, setOpen] = useState(false);
+    const [selected, setSelected] = useState(null);
+    const [updatingName, setUpdatingName] = useState("");
 
 
     useEffect(() => {
@@ -23,7 +31,7 @@ export default function AdminCategory() {
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,6 +52,48 @@ export default function AdminCategory() {
         }
     };
 
+    // update the category
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try{
+            const {data} = await axios.put(`/category/${selected._id}`, {
+                name: updatingName, 
+            });
+            if(data?.error) {
+                toast.error(data.error);
+            }else {
+                toast.success(`${data.name} has been updated`);
+                setSelected(null);
+                setUpdatingName("");
+                loadCategories();
+                setOpen(false);
+            }
+        }catch (err) {
+            console.log(err);
+            toast.error("check your input and try again");
+        }
+    };
+
+    // delete the category 
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        try{
+            const {data} = await axios.delete(`/category/${selected._id}`);
+            if(data?.error) {
+                toast.error(data.error);
+            }else {
+                toast.success(`${data.name} has been deleted`);
+                setSelected(null);
+                loadCategories();
+                setOpen(false);
+            }
+        }catch (err) {
+            console.log(err);
+            toast.error("check your input and try again");
+        }
+    };
+
     return (
         <>
             <Jumbotron title={`Welcome ${auth?.user?.name}`}
@@ -60,24 +110,39 @@ export default function AdminCategory() {
                     <div className="col-md-9">
                         <div className="p-3 mt-2 bg-light">Manage Inventory</div>
 
-                        <div className="p-3">
+                            <CategoryForm value={name} 
+                            setValue={setName}
+                            handleSubmit={handleSubmit}/>
 
-                            <form onSubmit={handleSubmit}>
-                                <input type="text" className="form-control p-3" 
-                                placeholder="Enter a category name" value={name}
-                                onChange={(e) => setName(e.target.value)} />
-                                <button className="btn btn-primary mt-3">Click to Submit</button>
-                            </form>
-                        </div> 
-
-                         <hr />
-
-                          {/* category map */}
-                            <div className="col">{categories?.map((c) => (
-                                <button key={c._id} className="btn btn-outline-primary m-3">{c.name}</button>
-                                    
+                            <hr />
+                           
+                           {/* category map */}
+                            <div className="col">
+                                {categories?.map((c) => (
+                                <button key={c._id} 
+                                    className="btn btn-outline-primary m-3" 
+                                    onClick={() => {
+                                        setOpen(true);
+                                        setSelected(c);
+                                        setUpdatingName(c.name); 
+                                        }}>
+                                    {c.name}
+                                </button>                                    
                                 ))}
-                            </div>                     
+                            </div>
+
+                           <Modal open={open} 
+                                onOk={() => setOpen(false)} 
+                                onCancel={() => setOpen(false)}
+                                footer={null}>
+
+                                <CategoryForm value={updatingName}
+                                 setValue={setUpdatingName}
+                                 handleSubmit={handleUpdate}
+                                 buttonText="Update"
+                                 handleDelete={handleDelete}
+                                 />
+                           </Modal>                    
                     </div>
                 </div>
             </div>           
