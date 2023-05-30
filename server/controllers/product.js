@@ -14,25 +14,25 @@ export const create = async (req, res) => {
         // I'm using 'switch' instead of 'if-else' because of the number of input conditions
         switch (true) {
             case !name.trim():
-                res.json({ error: "A valid name is required." });
+               return res.json({ error: "A valid name is required." });
 
                 case !description.trim():
-                res.json({ error: "A valid description is required." });
+                return res.json({ error: "A valid description is required." });
 
                 case !price.trim():
-                res.json({ error: "Enter a price." });
+                return res.json({ error: "Enter a price." });
 
                 case !category.trim():
-                res.json({ error: "A valid category name is required." });
+                return res.json({ error: "A valid category name is required." });
 
                 case !quantity.trim():
-                res.json({ error: "A valid quantity is required." });
+                return res.json({ error: "A valid quantity is required." });
 
                 case !shipping.trim():
-                res.json({ error: "Shipping is required." });
+                return res.json({ error: "Shipping is required." });
 
                 case photo && photo.size > 1000000:
-                res.json({ error: "Image size must be less than 1MB." });
+                return res.json({ error: "Image size must be less than 1MB." });
         }
 
         // Creating a Product, use spread operator to get all the above input from .fields

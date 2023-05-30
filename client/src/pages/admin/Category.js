@@ -116,7 +116,7 @@ export default function AdminCategory() {
 
                             <hr />
                            
-                           {/* category map */}
+                           
                             <div className="col">
                                 {categories?.map((c) => (
                                 <button key={c._id} 
@@ -130,8 +130,7 @@ export default function AdminCategory() {
                                 </button>                                    
                                 ))}
                             </div>
-
-                           <Modal open={open} 
+                            <Modal open={open} 
                                 onOk={() => setOpen(false)} 
                                 onCancel={() => setOpen(false)}
                                 footer={null}>
@@ -142,7 +141,7 @@ export default function AdminCategory() {
                                  buttonText="Update"
                                  handleDelete={handleDelete}
                                  />
-                           </Modal>                    
+                            </Modal>     
                     </div>
                 </div>
             </div>           

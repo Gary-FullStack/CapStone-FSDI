@@ -23,6 +23,13 @@ export default function AdminMenu() {
                     </NavLink>
                 </li>
 
+                <li>
+                    <NavLink className={"list-group-item"} 
+                    to="/dashboard/admin/products">
+                        View Product inventory
+                    </NavLink>
+                </li>
+
 
             </ul>
                                 
