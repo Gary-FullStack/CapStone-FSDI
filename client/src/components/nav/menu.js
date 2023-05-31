@@ -22,6 +22,10 @@ export default function Menu() {
         <NavLink className="nav-link" to="/">HOME</NavLink>
       </li>
 
+      <li className="nav-item">
+        <NavLink className="nav-link" to="/shop">SHOP</NavLink>
+      </li>
+
       
       {!auth?.user ? (
           <>
