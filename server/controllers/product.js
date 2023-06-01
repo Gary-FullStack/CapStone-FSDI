@@ -165,12 +165,20 @@ export const update = async (req, res) => {
 
 };
 
-// for the filter fuction on the product page
+// for the filter fuction on the product page  ( I got help with this one. :) )
 export const filteredProducts = async (req, res) => {
     try {
-
+      const { checked, radio } = req.body;
+  
+      let args = {};
+      if (checked.length > 0) args.category = checked;
+      if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+      console.log("args => ", args);
+  
+      const products = await Product.find(args);
+      console.log("filtered products query => ", products.length);
+      res.json(products);
     } catch (err) {
-        console.log(err);
-
+      console.log(err);
     }
-}
+  };

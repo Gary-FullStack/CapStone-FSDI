@@ -6,6 +6,7 @@ import { Checkbox, Radio } from "antd";
 import { prices } from "../Prices";
 
 
+
 export default function Shop() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
