@@ -16,3 +16,4 @@ A special shout out to TREE HOUSE (https://teamtreehouse.com/) and their well-st
 
 Practice is the NUMBER ONE way we mere mortals attain greatness.  
 
+![pwactice](https://github.com/Gary-FullStack/CapStone-FSDI/assets/114956248/72b965d6-23b3-4487-8b0c-d9e64f28a1fc)
