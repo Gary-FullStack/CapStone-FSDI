@@ -12,3 +12,8 @@ All work done by Gary M.
 Inspiration, skills and knowledge and so on gained from SDGKU staff and my own journey through hundreds of hours of self-paced tutorials.
 
 A special shout out to TREE HOUSE (https://teamtreehouse.com/) and their well-structured tutorials and courses.
+
+
+Practice is the NUMBER ONE way we mere mortals attain greatness.  
+
+![practice](../../../Pictures/capstone/pwactice.jpg)

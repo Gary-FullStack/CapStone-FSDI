@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import Jumbotron from "../components/cards/Jumbotron";
 import axios from "axios";
 import ProductCard from "../components/cards/ProductCard";
-import { Checkbox } from "antd";
+import { Checkbox, Radio } from "antd";
+import { prices } from "../Prices";
 
 
 export default function Shop() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [checked, setChecked] = useState ([]);
+    const [radio, setRadio] = useState ([]);
 
     useEffect(() => {
         loadProducts(); 
@@ -48,48 +50,70 @@ export default function Shop() {
         setChecked(all);
     };
 
-
     return (
         <>
-
-            <Jumbotron title="Browse our collection of books" className="fw-bold"
-            subTitle="Welcome, Find your Adventure below!"/>
-
-            < div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-3">
-                    <h2 className="p-4 mt-3 mb-3 h4 bg-light text-center"> 
-                    Filter by Category</h2>
-                    <div className="row p-4">
-                            {categories?.map((c) => (
-                                <Checkbox key={c._id} 
-                                onChange={(e) => handleCheck(e.target.checked, c._id)}>
-                                    {c.name}
-                                </Checkbox>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="col-md-9">
-                        <h2 className="p-4 mt-3 mb-3 h4 bg-light text-center">
-                        There are {products?.length} Products in the store!</h2>
-                        <div className="row">
-                            {products?.map((p) => (
-                                <div className="col-md-4" key={p._id}>
-                                    <ProductCard p={p} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+          <Jumbotron title="Browse our Collections" subTitle="Find your next Adventure !!" />
+    
+          
+    
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-3">
+                <h2 className="p-3 mt-2 mb-2 h4 bg-light text-center">
+                  Filter by Categories
+                </h2>
+                <div className="row p-5">
+                  {categories?.map((c) => (
+                    <Checkbox
+                      key={c._id}
+                      onChange={(e) => handleCheck(e.target.checked, c._id)}
+                    >
+                      {c.name}
+                    </Checkbox>
+                  ))}
                 </div>
+    
+                <h2 className="p-3 mt-2 mb-2 h4 bg-light text-center">
+                  Filter by Price
+                </h2>
+                <div className="row p-5">
+                  <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+                    {prices?.map((p) => (
+                      <div key={p._id} style={{ marginLeft: "8px" }}>
+                        <Radio value={p.array}>{p.name}</Radio>
+                      </div>
+                    ))}
+                  </Radio.Group>
+                </div>
+    
+                <div className="p-5 pt-0">
+                  <button
+                    className="btn btn-outline-secondary col-12"
+                    onClick={() => window.location.reload()}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+    
+              <div className="col-md-9">
+                <h2 className="p-3 mt-2 mb-2 h4 bg-light text-center">
+                  {products?.length} Products
+                </h2>
+    
+                <div
+                  className="row"
+                  style={{ height: "100vh", overflow: "scroll" }}
+                >
+                  {products?.map((p) => (
+                    <div className="col-md-4" key={p._id}>
+                      <ProductCard p={p} />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
+          </div>
         </>
-    );
-
-
-
-
-
-
-
-}
+      );
+    }
