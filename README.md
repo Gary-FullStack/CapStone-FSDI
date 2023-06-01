@@ -16,4 +16,3 @@ A special shout out to TREE HOUSE (https://teamtreehouse.com/) and their well-st
 
 Practice is the NUMBER ONE way we mere mortals attain greatness.  
 
-![practice](../CapStone-FSDI/client/src/images/pwactice.jpg)
