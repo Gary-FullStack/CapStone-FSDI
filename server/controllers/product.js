@@ -164,3 +164,13 @@ export const update = async (req, res) => {
     }
 
 };
+
+// for the filter fuction on the product page
+export const filteredProducts = async (req, res) => {
+    try {
+
+    } catch (err) {
+        console.log(err);
+
+    }
+}
