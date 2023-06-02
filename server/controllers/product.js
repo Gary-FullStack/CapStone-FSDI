@@ -165,7 +165,7 @@ export const update = async (req, res) => {
 
 };
 
-// for the filter fuction on the product page  ( I got help with this one. :) )
+// for the filter fuction on the product page  ( I got a lot of help with this one. :) )
 export const filteredProducts = async (req, res) => {
     try {
       const { checked, radio } = req.body;
@@ -181,4 +181,53 @@ export const filteredProducts = async (req, res) => {
     } catch (err) {
       console.log(err);
     }
-  };
+};
+
+//  fuction to help with pagination and the "load more"
+export const productsCount = async (req, res) => {
+    try {
+        const total = await Product.find({}).estimatedDocumentCount();
+
+        res.json(total);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+//  fuction to help with pagination and the "load more"
+export const listProducts = async (req, res) => {
+    try {
+        const perPage = 6;
+        const page = req.params.page ? req.params.page : 1;
+
+        const products = await Product.find({})
+        .select("-photo")
+        .skip((page -1) * perPage)
+        .limit(perPage)
+        .sort({ createdAt: -1 });
+
+        res.json(products);
+    } catch (err) {
+        console.log(err); 
+    }
+
+};
+
+
+// fuction for the product seach bar  Mongo db query( regex)
+
+export const productsSearch = async (req, res) => {
+    try {
+        const {keyword} = req.params;
+        const results = await Product.find ({
+            $or: [
+                {name: {$regex: keyword, $options: "i"}},
+                {description: {$regex: keyword, $options: "i"}},
+            ]
+        }).select ('-photo');
+
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+    }
+};

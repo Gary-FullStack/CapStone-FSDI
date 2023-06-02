@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
+import Search from "../forms/Search";
 
 
 export default function Menu() {
@@ -24,8 +25,9 @@ export default function Menu() {
 
       <li className="nav-item">
         <NavLink className="nav-link" to="/shop">SHOP</NavLink>
-      </li>
+      </li>  
 
+      <Search />
       
       {!auth?.user ? (
           <>
@@ -39,7 +41,6 @@ export default function Menu() {
       ) : (
 
         <div className="dropdown"> 
-
           <li>
               {/* eslint-disable-next-line */}
               <a className="nav-link pointer dropdown-toggle" data-bs-toggle="dropdown">{auth?.user?.name}</a>  
@@ -58,8 +59,7 @@ export default function Menu() {
                 </li>
               </ul>
           </li>               
-        </div>       
-
+        </div> 
       )}
 
     </ul>

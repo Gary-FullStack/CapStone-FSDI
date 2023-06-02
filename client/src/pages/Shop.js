@@ -7,15 +7,37 @@ import { prices } from "../Prices";
 
 
 
+
 export default function Shop() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [checked, setChecked] = useState ([]);
     const [radio, setRadio] = useState ([]);
 
+
     useEffect(() => {
-        loadProducts(); 
+      if (!checked.length || radio.length)  loadProducts(); 
     }, []);
+
+    useEffect(() => {
+      if(checked.length || radio.length) loadFilteredProducts ()
+    }, [checked, radio])
+
+    
+
+    // this fuction retuns a value from the filer radio buttons
+    const loadFilteredProducts = async () => {
+      try {
+        const { data } = await axios.post("/filtered-products", {
+          checked,
+          radio,
+        });
+        console.log("filtered products =>", data);
+        setProducts(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     const loadProducts = async () => {
         try {
@@ -104,7 +126,7 @@ export default function Shop() {
     
                 <div
                   className="row"
-                  style={{ height: "100vh", overflow: "scroll" }}
+                  style={{ height: "80vh", overflow: "scroll" }}
                 >
                   {products?.map((p) => (
                     <div className="col-md-4" key={p._id}>
