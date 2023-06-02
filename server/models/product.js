@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema ({
     },
 
     description: {
-        type: String,
+        type: {},
         required: true,
     },
 

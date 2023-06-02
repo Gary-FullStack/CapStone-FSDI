@@ -67,7 +67,7 @@ export default function AdminProducts () {
                                 <h5 className="card-title">{p?.name}</h5>
 
                                 <p className="card-text">
-                                    {p?.description?.substring(0, 180)}...
+                                    {p?.description?.substring(0, 220)}...
                                 </p>
 
                                 <p className="card-text">
