@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { useSearch } from "../../context/search";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Search(){
@@ -8,12 +9,14 @@ export default function Search(){
 
     // hooks
     const [values, setValues] = useSearch();
+    const navigate = useNavigate();
 
         const handleSubmit = async (e) => {
             e.preventDefault();
             try {
                 const {data} = await axios.get(`/products/search/${values?.keyword}`);
                 setValues({ ...values, results: data});
+                navigate("/search");
             } catch (err) {
             console.log(err)
             }
@@ -32,7 +35,7 @@ export default function Search(){
             <button className="btn btn-outline-primary" 
                 type="submit"
                 style={{ borderRadius: "0px"}}
-                >Search {values.results.length}
+                >Search
             </button>
         </form>
     );

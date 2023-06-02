@@ -16,6 +16,8 @@ import Shop from "./pages/Shop";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import AdminRoute from "./components/routes/AdminRoute";
 import notFound from "../src/images/404-book.png"
+import Search from './pages/Search';
+import ProductView from "./pages/ProductView";
 
 // 404 page
 const PageNotFound = () => {
@@ -37,6 +39,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/product/:slug" element={<ProductView />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />   
 
