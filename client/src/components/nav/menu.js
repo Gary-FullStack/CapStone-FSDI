@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 import Search from "../forms/Search";
+import useCategory from "../../hooks/useCategory";
 
 
 export default function Menu() {
 
     const [auth, setAuth] = useAuth();
+    const categories  = useCategory();
     const navigate = useNavigate();
 
     const logout = () => {
@@ -25,7 +27,28 @@ export default function Menu() {
 
       <li className="nav-item">
         <NavLink className="nav-link" to="/shop">SHOP</NavLink>
-      </li>  
+      </li> 
+
+       <div className="dropdown"> 
+          <li>
+              {/* eslint-disable-next-line */}
+              <a className="nav-link pointer dropdown-toggle"
+               data-bs-toggle="dropdown">Categories</a>  
+
+                <ul className="dropdown-menu" style={{ height: "300px", overflow: "scroll"}}>
+
+                    <li className="nav-item">
+                     <NavLink className="nav-link" to="/categories">All categories</NavLink>
+                    </li>
+
+                  {categories?.map((c) => (
+                    <li className="nav-item">
+                     <NavLink className="nav-link" to={`/category/${c.slug}`}>{c.name}</NavLink>
+                    </li>
+                  ))}     
+                </ul>
+          </li>               
+        </div> 
 
       <Search />
       
