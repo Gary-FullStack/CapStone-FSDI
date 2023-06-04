@@ -1,12 +1,14 @@
 
 import { Badge } from "antd";
 import { useNavigate } from 'react-router-dom';
+import { useCart } from "../../context/cart";
 
 
 // product cards   
 
 export default function ProductCard({p}) {
 
+    const [cart, setCart] = useCart();
     const navigate = useNavigate();
 
     return (
@@ -47,11 +49,11 @@ export default function ProductCard({p}) {
                 <button 
                 className='btn btn-outline-primary col card-button'
                 style={{ borderBottomRightRadius: "5px"}}
+                onClick={() => setCart([...cart, p])}
                 >Add to Cart</button>
             </div>
             
-            {/* <p>{moment(p.createdAt).fromNow()}</p>
-            <p>{p.sold} sold</p> */}
+          
          </div>
 
     );

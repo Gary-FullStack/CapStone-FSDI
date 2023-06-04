@@ -6,7 +6,7 @@ import Jumbotron from './../components/cards/Jumbotron';
 
 export default function Search() {
 
-    const [values, setValues] = useSearch();
+    const [values] = useSearch();
 
     return (
         <> 
@@ -29,6 +29,6 @@ export default function Search() {
 
             </div>
 
-        </>
+        </>   
     );
 }

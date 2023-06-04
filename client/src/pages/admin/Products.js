@@ -10,7 +10,7 @@ import moment from "moment";
 
 
 export default function AdminProducts () {
-    const [auth, setAuth] = useAuth ();
+    const [auth] = useAuth ();
     const [products, setProducts] = useState([]);
 
     useEffect(() => {

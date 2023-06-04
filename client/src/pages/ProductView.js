@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react";
-import moment from "moment";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Badge } from "antd";
 import {
   FaDollarSign,
-  FaProjectDiagram,
-  FaRegClock,
+  FaProjectDiagram,  
   FaCheck,
-  FaTimes,
-  FaTruckMoving,
+  FaTimes,  
   FaWarehouse,
   FaRocket,
 } from "react-icons/fa";
 import ProductCard from "../components/cards/ProductCard";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 // import { useCart } from "../context/cart";
 
 export default function ProductView() {
@@ -56,24 +52,13 @@ export default function ProductView() {
       <div className="row">
         <div className="col-md-9">
           <div className="card mb-3">
-            <Badge.Ribbon text={`${product?.sold} sold`} color="red">
-              <Badge.Ribbon
-                text={`${
-                  product?.quantity >= 1
-                    ? `${product?.quantity - product?.sold} in stock`
-                    : "Out of stock"
-                }`}
-                placement="start"
-                color="green"
-              >
-                <img
-                  className="card-img-top"
+            
+                <img className="card-img-top"
                   src={`${process.env.REACT_APP_API}/product/photo/${product._id}`}
                   alt={product.name}
                   style={{ height: "500px", width: "100%", objectFit: "cover" }}
                 />
-              </Badge.Ribbon>
-            </Badge.Ribbon>
+             
 
             <div className="card-body">
               <h1 className="fw-bold">{product?.name}</h1>
@@ -92,10 +77,6 @@ export default function ProductView() {
 
                 <p>
                   <FaProjectDiagram /> Category: {product?.category?.name}
-                </p>
-
-                <p>
-                  <FaRegClock /> Added: {moment(product.createdAt).fromNow()}
                 </p>
 
                 <p>
@@ -129,14 +110,14 @@ export default function ProductView() {
           </div>
         </div>
 
-        <div className="col-md-3">
+        {/* <div className="col-md-3">
           <h2>Related Products</h2>
           <hr />
           {related?.length < 1 && <p>Nothing found</p>}
           {related?.map((p) => (
             <ProductCard p={p} key={p._id} />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

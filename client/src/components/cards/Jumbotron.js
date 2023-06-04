@@ -1,7 +1,7 @@
 export default function Jumbotron({title, subTitle}) {
 
     return ( 
-        <div className="container-fluid bg-primary jumbotron">
+        <div className="container-fluid">
             <div className="row">
                 <div className="col text-center p-5 bg-light">
                     <h1>{title}</h1>

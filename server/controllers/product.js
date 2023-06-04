@@ -218,32 +218,32 @@ export const listProducts = async (req, res) => {
 
 export const productsSearch = async (req, res) => {
     try {
-        const {keyword} = req.params;
-        const results = await Product.find ({
-            $or: [
-                {name: {$regex: keyword, $options: "i"}},
-                {description: {$regex: keyword, $options: "i"}},
-            ]
-        }).select ('-photo');
-
-        res.json(results);
+      const { keyword } = req.params;
+      const results = await Product.find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      }).select("-photo");
+  
+      res.json(results);
     } catch (err) {
-        console.log(err);
+      console.log(err);
     }
-};
+  };
 
 //  related products 
-
+ 
 export const relatedProducts = async (req, res) => {
     try {
         const {productId, caegoryId} = req.params;
-        const relate = await Product.find({
+        const related = await Product.find({
             category: caegoryId,
             _id: { $ne: productId }, 
         }).select('-photo').populate("category").limit(3);
 
-        res.json(related);
+        res.json(relatedProducts);
     } catch (err) {
         console.log(err);
     }
-}
+};

@@ -7,7 +7,14 @@ const router = express.Router();
 import { requireSignin, isAdmin } from "../middlewares/auth.js";
 
 // controllers
-import { create, update, remove, list, read } from "../controllers/category.js";
+import { create, 
+    update, 
+    remove, 
+    list, 
+    read,
+    productsByCategory, 
+} from "../controllers/category.js";
+
 
 // lets get the entire CRUD involved   
 // using value/:parameter and get returns the Id needed
@@ -17,5 +24,6 @@ router.delete('/category/:categoryId', requireSignin, isAdmin, remove);
 router.get('/categories', list);
 // this is a non logged in search, so use slug to search as a real name
 router.get('/category/:slug', read);
+router.get("/products-by-category/:slug");
 
 export default router; 

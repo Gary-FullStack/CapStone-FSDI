@@ -3,12 +3,16 @@ import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 import Search from "../forms/Search";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
+import { Badge } from "antd";
 
 
 export default function Menu() {
 
     const [auth, setAuth] = useAuth();
-    const categories  = useCategory();
+    const [cart, setCart] = useCart();
+
+    const categories  = useCategory();    
     const navigate = useNavigate();
 
     const logout = () => {
@@ -33,7 +37,7 @@ export default function Menu() {
           <li>
               {/* eslint-disable-next-line */}
               <a className="nav-link pointer dropdown-toggle"
-               data-bs-toggle="dropdown">Categories</a>  
+               data-bs-toggle="dropdown">CATEGORIES</a>  
 
                 <ul className="dropdown-menu" style={{ height: "300px", overflow: "scroll"}}>
 
@@ -43,12 +47,19 @@ export default function Menu() {
 
                   {categories?.map((c) => (
                     <li className="nav-item">
-                     <NavLink className="nav-link" to={`/category/${c.slug}`}>{c.name}</NavLink>
+                      <Badge 
+                      count={cart?.length >= 1 ? cart.length : 0} offset={[-5, 13]} showZero={true}>
+                        <NavLink className="nav-link" to={`/category/${c.slug}`}>{c.name}</NavLink>
+                      </Badge>
                     </li>
                   ))}     
                 </ul>
           </li>               
         </div> 
+
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/cart">CART</NavLink>
+        </li>
 
       <Search />
       
@@ -66,7 +77,7 @@ export default function Menu() {
         <div className="dropdown"> 
           <li>
               {/* eslint-disable-next-line */}
-              <a className="nav-link pointer dropdown-toggle" data-bs-toggle="dropdown">{auth?.user?.name}</a>  
+              <a className="nav-link pointer dropdown-toggle" data-bs-toggle="dropdown">{auth?.user?.name?.toUpperCase()}</a>  
 
               <ul className="dropdown-menu">
                 
