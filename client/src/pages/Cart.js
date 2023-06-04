@@ -2,8 +2,7 @@ import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 import Jumbotron from "../components/cards/Jumbotron";
 import { useNavigate } from "react-router-dom";
-// import UserCartSidebar from "../components/cards/UserCartSidebar";
-// import ProductCardHorizontal from "../components/cards/ProductCardHorizontal";
+
 
 export default function Cart() {
   // context
@@ -16,7 +15,7 @@ export default function Cart() {
     <>
       <Jumbotron
         title={`Hello ${auth?.token && auth?.user?.name}`}
-        subTitle={cart?.length? `You have ${cart.length} items in the cart.
+        subTitle={cart?.length?  `You have ${cart.length} items in your cart.
          ${auth?.token ? "" : "Please login to checkout"}`: "Your cart is empty"} />
 
       <div className="container-fluid">
@@ -41,21 +40,53 @@ export default function Cart() {
         </div>
       </div>
 
-      {cart?.length && (
-        {/* <div className="container">
+                  {/* number of items in cart */}
+      {cart?.length > 1 && (
+        <div className="container">
           <div className="row">
+
             <div className="col-md-8">
+
               <div className="row">
-                {cart?.map((p, index) => (
-                  <ProductCardHorizontal key={index} p={p} />
-                ))}
+
+                  {/* this produces a card. with product info */}
+                {cart?.map((p) => 
+                  <div key={p._id} className="card mb-3" style={{maxWidth: 400}}>
+                    <div className="row g-0">
+
+                        {/* this adds the picture to the card */}
+                      <div className="col-md-4">
+                        <img src={`${process.env.REACT_APP_API}/product/photo/${p._id}`}
+                        alt={p.name} 
+                        style={{height: "200px", objectFit: "cover", marginLeft: "-12px"}}
+                        />
+                      </div>
+                      <div className="col-md-8">
+
+                          {/*  this adds text and descrition of product */}
+                        <div className="card-body">
+                          <h5 className="card-title">{p.name}</h5>
+                          <p className="card-text">{`${p?.description?.substring(0, 50)}...`}</p>
+                        </div>
+
+                      </div>
+
+
+
+
+
+                    </div>                 
+                  </div>
+                )}
               </div>
             </div>
 
-            <UserCartSidebar />
+            <div className="col-md-4">
+              total, address, payments
+            </div>
           </div>
-        </div> */}
-      )}
+        </div>
+      )}     
     </>
   );
 }

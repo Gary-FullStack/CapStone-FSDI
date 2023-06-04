@@ -24,7 +24,7 @@ export default function Menu() {
     // use <> React fragment
   return  <>
 
-    <ul className="nav d-flex justify-content-between mb-2">
+    <ul className="nav d-flex justify-content-between mb-2 sticky-top bg-light">
       <li className="nav-item">
         <NavLink className="nav-link" to="/">HOME</NavLink>
       </li>
@@ -46,19 +46,25 @@ export default function Menu() {
                     </li>
 
                   {categories?.map((c) => (
-                    <li className="nav-item">
-                      <Badge 
-                      count={cart?.length >= 1 ? cart.length : 0} offset={[-5, 13]} showZero={true}>
-                        <NavLink className="nav-link" to={`/category/${c.slug}`}>{c.name}</NavLink>
-                      </Badge>
-                    </li>
+                    <li key="{c._id}">                      
+                      <NavLink className="nav-link" 
+                      to={`/category/${c.slug}`}>{c.name}</NavLink>                      
+                    </li> 
                   ))}     
                 </ul>
           </li>               
         </div> 
 
-        <li className="nav-item">
-          <NavLink className="nav-link" to="/cart">CART</NavLink>
+        <li className="nav-item mt-1">
+          <Badge
+            count={cart?.length >= 1 ? cart.length : 0}
+            offset={[-5, 11]}
+            showZero={true}
+          >
+            <NavLink className="nav-link" aria-current="page" to="/cart">
+              CART
+            </NavLink>
+          </Badge>
         </li>
 
       <Search />
@@ -77,7 +83,8 @@ export default function Menu() {
         <div className="dropdown"> 
           <li>
               {/* eslint-disable-next-line */}
-              <a className="nav-link pointer dropdown-toggle" data-bs-toggle="dropdown">{auth?.user?.name?.toUpperCase()}</a>  
+              <a className="nav-link pointer dropdown-toggle" 
+              data-bs-toggle="dropdown">{auth?.user?.name?.toUpperCase()}</a>  
 
               <ul className="dropdown-menu">
                 

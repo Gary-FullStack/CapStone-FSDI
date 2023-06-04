@@ -9,14 +9,14 @@ import {
   FaWarehouse,
   FaRocket,
 } from "react-icons/fa";
-import ProductCard from "../components/cards/ProductCard";
-// import toast from "react-hot-toast";
-// import { useCart } from "../context/cart";
+// import ProductCard from "../components/cards/ProductCard";
+import toast from "react-hot-toast";
+import { useCart } from "../context/cart";
 
 export default function ProductView() {
-  // context
-  // const [cart, setCart] = useCart();
-  // state
+  
+  const [cart, setCart] = useCart();
+  
   const [product, setProduct] = useState({});
   const [related, setRelated] = useState([]);
   // hooks
@@ -94,7 +94,7 @@ export default function ProductView() {
               </div>
             </div>
 
-            {/* <button
+            <button
               className="btn btn-outline-primary col card-button"
               style={{
                 borderBottomRightRadius: "5px",
@@ -106,7 +106,7 @@ export default function ProductView() {
               }}
             >
               Add to Cart
-            </button> */}
+            </button>
           </div>
         </div>
 
@@ -121,4 +121,4 @@ export default function ProductView() {
       </div>
     </div>
   );
-}
+} 
