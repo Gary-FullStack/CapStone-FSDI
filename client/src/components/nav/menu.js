@@ -15,6 +15,8 @@ export default function Menu() {
     const categories  = useCategory();    
     const navigate = useNavigate();
 
+   
+
     const logout = () => {
       setAuth({ ...auth, user:null, token: "" });
       localStorage.removeItem("auth");

@@ -13,35 +13,42 @@ export default function CategoryView() {
   const params = useParams();
 
   useEffect(() => {
-    if (params?.slug) loadProductsByCatgory();
+    if (params?.slug)loadProductsByCategory();
   }, [params?.slug]);
 
-  const loadProductsByCatgory = async () => {
+
+  const loadProductsByCategory = async () => {
     try {
       const { data } = await axios.get(`/products-by-category/${params.slug}`);
       setCategory(data.category);
       setProducts(data.products);
-    } catch (err) {
+    }catch (err) {
       console.log(err);
     }
-  };
-
+   };
+   
   return (
     <>
-      <Jumbotron
-        title={category?.name}
-        subTitle={`${products?.length} products found in "${category?.name}"`}
-      />
+      <Jumbotron title={category?.name} subTitle={`${products.length} items found !!`} />
 
       <div className="container-fluid">
+
         <div className="row mt-3">
           {products?.map((p) => (
-            <div key={p._id} className="col-md-4">
-              <ProductCard p={p} />
-            </div>
+             <div key={p._id} className="col-md-4">
+             <ProductCard p={p} />
+             </div>
           ))}
         </div>
+
       </div>
+
+
+
     </>
+
   );
+
 }
+
+  

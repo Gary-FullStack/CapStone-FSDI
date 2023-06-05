@@ -9,7 +9,7 @@ import {
   FaWarehouse,
   FaRocket,
 } from "react-icons/fa";
-// import ProductCard from "../components/cards/ProductCard";
+import ProductCard from "../components/cards/ProductCard";
 import toast from "react-hot-toast";
 import { useCart } from "../context/cart";
 
@@ -38,9 +38,7 @@ export default function ProductView() {
 
   const loadRelated = async (productId, categoryId) => {
     try {
-      const { data } = await axios.get(
-        `/related-products/${productId}/${categoryId}`
-      );
+      const { data } = await axios.get(`/related-products/${productId}/${categoryId}`);
       setRelated(data);
     } catch (err) {
       console.log(err);
@@ -110,14 +108,14 @@ export default function ProductView() {
           </div>
         </div>
 
-        {/* <div className="col-md-3">
+        <div className="col-md-3">
           <h2>Related Products</h2>
           <hr />
           {related?.length < 1 && <p>Nothing found</p>}
           {related?.map((p) => (
             <ProductCard p={p} key={p._id} />
           ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
