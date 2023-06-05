@@ -32,27 +32,28 @@ export default function ProductCard({p}) {
 
             <div className='card-body'>
                 <h5>{p?.name}</h5>
-
                 <h4 className='fw-bold'>{p?.price.toLocaleString
                 ("en-us", {style: "currency", currency: "USD"})}</h4>
-
                 <p className='card-text'>{p?.description?.substring(0, 100)}...</p>
             </div>
-
+            
             <div className='d-flex justify-content-between'>
                 <button
                  className='btn btn-primary col card-button'
                  style={{ borderBottomLeftRadius: "5px"}}
-                 onClick={() => navigate (`/product/${p.slug}`)}
+                 onClick={() => navigate(`/product/${p.slug}`)}
                  >View this Item</button>
 
-                <button 
-                  className="btn btn-outline-primary col card-button"
+                <button
+                    className="btn btn-outline-primary col card-button"
                     style={{ borderBottomRightRadius: "5px" }}
                     onClick={() => {
-                        setCart([...cart, p]);
-                        toast.success("Added to cart"); }}>                        
-                        Add to Cart</button>
+                    setCart([...cart, p]);
+                    localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                    toast.success("Added to cart");
+                    }} >
+                        Add to Cart
+                </button>
             </div>
             
           
