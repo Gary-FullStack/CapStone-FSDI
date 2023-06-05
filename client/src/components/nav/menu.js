@@ -48,7 +48,7 @@ export default function Menu() {
                     </li>
 
                   {categories?.map((c) => (
-                    <li key="{c._id}">                      
+                    <li key={c.name}>                      
                       <NavLink className="nav-link" 
                       to={`/category/${c.slug}`}>{c.name}</NavLink>                      
                     </li> 
