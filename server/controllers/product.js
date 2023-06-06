@@ -1,6 +1,18 @@
 import Product from "../models/product.js";
 import fs from "fs";
 import slugify from "slugify";
+import braintree from "braintree"; 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: process.env.BRAINTREE_MERCHANT_ID,
+    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+    privateKey: process.env.BRAINTREE_PRIVATE_KEY 
+})
+
 
 
 // for creating a new product
@@ -232,8 +244,7 @@ export const productsSearch = async (req, res) => {
     }
   };
 
-//  related products 
- 
+//  related products  
 export const relatedProducts = async (req, res) => {
     try {
         const {productId, categoryId} = req.params;
@@ -242,6 +253,51 @@ export const relatedProducts = async (req, res) => {
             _id: { $ne: productId }, 
         }).select('-photo').populate("category").limit(3);
         res.json(related);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// braintree whatsis
+
+export const getToken = async () => {
+    try {
+        gateway.clientToken.generate({}, function (err, response) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.send(response);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+
+export const processPayment = async () => {
+    try {
+        console.log(req.body);
+        let nonceFromClient = req.body.paymentMethodNonce;
+
+        let newTransaction = gateway.transaction.sale(
+            {
+                amount: "10.00",
+                paymentMethodNonce: nonceFromClient,
+                options: {
+                    submitForSettlement: true,
+                }
+
+            }, 
+            
+            function (error, result) {
+            if(result) {
+                res.send(result)
+            } else {
+                res.status(500).send(error);
+            }
+        })
     } catch (err) {
         console.log(err);
     }
