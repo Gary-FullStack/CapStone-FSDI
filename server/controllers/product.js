@@ -260,7 +260,7 @@ export const relatedProducts = async (req, res) => {
 
 // braintree whatsis
 
-export const getToken = async () => {
+export const getToken = async (req, res) => {
     try {
         gateway.clientToken.generate({}, function (err, response) {
             if (err) {
@@ -276,19 +276,23 @@ export const getToken = async () => {
 };
 
 
-export const processPayment = async () => {
+export const processPayment = async (req, res) => {
     try {
-        console.log(req.body);
-        let nonceFromClient = req.body.paymentMethodNonce;
+        // console.log(req.body);
+        const {nonce, cart} = req.body;
+
+        let total = 0;
+        cart.map((i) => {
+            total += i.price;
+        });
 
         let newTransaction = gateway.transaction.sale(
             {
-                amount: "10.00",
-                paymentMethodNonce: nonceFromClient,
+                amount: total,
+                paymentMethodNonce: nonce,
                 options: {
-                    submitForSettlement: true,
+                submitForSettlement: true,
                 }
-
             }, 
             
             function (error, result) {
