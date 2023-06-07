@@ -278,13 +278,14 @@ export const getToken = async (req, res) => {
 
 export const processPayment = async (req, res) => {
     try {
-        // console.log(req.body);
-        const {nonce, cart} = req.body;
+        const { nonce, cart } = req.body;
 
         let total = 0;
         cart.map((i) => {
             total += i.price;
         });
+
+        console.log("total =>", total);
 
         let newTransaction = gateway.transaction.sale(
             {

@@ -1,30 +1,27 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
-import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/cart";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DropIn from "braintree-web-drop-in-react";
 import toast from "react-hot-toast";
 
-
-export default function CartSidebar() {
-
-  //  context
+export default function UserCartSidebar() {
+  // context
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-
   // state
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
-
+  const [loading, setLoading] = useState(false);
   // hooks
   const navigate = useNavigate();
 
   useEffect(() => {
     if (auth?.token) {
-      getClientToken()
+      getClientToken();
     }
-  }, [auth?.token])
+  }, [auth?.token]);
 
   const getClientToken = async () => {
     try {
@@ -35,7 +32,6 @@ export default function CartSidebar() {
     }
   };
 
-
   const cartTotal = () => {
     let total = 0;
     cart.map((item) => {
@@ -45,67 +41,72 @@ export default function CartSidebar() {
       style: "currency",
       currency: "USD",
     });
-    
   };
 
-
-      const handleBuy = async () => {
-        try {
-          const { nonce } = await instance.requestPaymentMethod();
-          console.log('nonce =>', nonce);
-          const { data } = await axios.post("/braintree/payment", {
-            nonce, cart,
-          });
-          localStorage.removeItem("cart");
-          setCart([]);
-          navigate("/dashboard/user/orders");
-          toast.success("Purchase Successful")
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
-
-
-
+  const handleBuy = async () => {
+    try {
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      //   console.log("nonce => ", nonce);
+      const { data } = await axios.post("/braintree/payment", {
+        nonce,
+        cart,
+      });
+        console.log("handle buy response => ", data);
+      setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/user/orders");
+      toast.success("Payment successful");
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="col-md-4 mb-5">
-      <h4>Your cart Summary</h4>
-      total, address, payments
+      <h4>Your cart summary</h4>
+      Total / Address / Payments
       <hr />
       <h6>Total: {cartTotal()}</h6>
       {auth?.user?.address ? (
         <>
           <div className="mb-3">
             <hr />
-            <h4>Delivery Address:</h4>
+            <h4>Delivery address:</h4>
             <h5>{auth?.user?.address}</h5>
           </div>
-          <button className="btn btn-outline-warning" 
-          onClick={() => navigate("/dashboard/user/profile")}
-            >Update Address
+          <button
+            className="btn btn-outline-warning"
+            onClick={() => navigate("/dashboard/user/profile")}
+          >
+            Update address
           </button>
         </>
-      ):(
+      ) : (
         <div className="mb-3">
           {auth?.token ? (
-            <button className="btn btn-outline-warning"
-            onClick={() => navigate("/dashboard/user/profile")}>
-            Add a delivery Address
+            <button
+              className="btn btn-outline-warning"
+              onClick={() => navigate("/dashboard/user/profile")}
+            >
+              Add delivery address
             </button>
           ) : (
-            <button className="btn btn-outline-danger"
-            onClick={() => navigate("/login", {
-              state: "/cart", 
-            })} 
-            >Log in to check-out
+            <button
+              className="btn btn-outline-danger mt-3"
+              onClick={() =>
+                navigate("/login", {
+                  state: "/cart",
+                })
+              }
+            >
+              Login to checkout
             </button>
           )}
         </div>
       )}
-
-
       <div className="mt-3">
         {!clientToken || !cart?.length ? (
           ""
@@ -123,19 +124,13 @@ export default function CartSidebar() {
             <button
               onClick={handleBuy}
               className="btn btn-primary col-12 mt-2"
-              disabled={!auth?.user?.address || !instance}
+              disabled={!auth?.user?.address || !instance || loading}
             >
-             Buy {/* {loading ? "Processing..." : "Buy"} */}
+              {loading ? "Processing..." : "Buy"}
             </button>
           </>
         )}
       </div>
     </div>
-
-
-
-
   );
-
-
 }
