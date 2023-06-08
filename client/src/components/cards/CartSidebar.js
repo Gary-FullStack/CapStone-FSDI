@@ -47,7 +47,7 @@ export default function UserCartSidebar() {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      //   console.log("nonce => ", nonce);
+        console.log("nonce => ", nonce);
       const { data } = await axios.post("/braintree/payment", {
         nonce,
         cart,

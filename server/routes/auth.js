@@ -7,7 +7,7 @@ const router = express.Router();
 import { requireSignin, isAdmin } from "../middlewares/auth.js";
 
 // controllers
-import { register, login, secret, updateProfile } from "../controllers/auth.js";
+import { register, login, secret, updateProfile, getOrders, } from "../controllers/auth.js";
 
 router.post("/register", register);
 router.post("/login", login);
@@ -26,6 +26,11 @@ router.get("/admin-check", requireSignin, isAdmin, (req, res) => {
 router.put("/profile", requireSignin, updateProfile );
 
 router.get("/secret", requireSignin, isAdmin, secret);
+
+
+// orders
+router.get("/orders", requireSignin, getOrders);
+// router.get("/all-orders", requireSignin, isAdmin, allOrders);
 
 
 export default router; 
