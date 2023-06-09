@@ -347,7 +347,8 @@ export const orderStatus = async (req, res) => {
     try {
         const { orderId } = req.params;
         const { status } = req.body;
-        const order = await Order.findByIdAndUpdate(orderId, { status }).populate("buyer", "email name");
+        const order = await Order.findByIdAndUpdate(orderId, 
+            { status }, { new: true }).populate("buyer", "email name");
 
         const emailData = {
             from: process.env.EMAIL_FROM,
