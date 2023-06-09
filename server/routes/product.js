@@ -22,6 +22,7 @@ productsSearch,
 relatedProducts,
 getToken,
 processPayment,
+orderStatus,
 }from "../controllers/product.js";
 
 
@@ -41,5 +42,6 @@ router.get("/related-products/:productId/:categoryId", relatedProducts);
 // payment routes
 router.get("/braintree/token", getToken);
 router.post("/braintree/payment", requireSignin, processPayment);
+router.put("/order-status/:orderId", requireSignin, isAdmin, orderStatus);
 
 export default router;

@@ -36,7 +36,7 @@ export default function Register() {
           setAuth({ ...auth, token: data.token, user: data.user});
           toast.success("Congratualations Adventurer, you have succesfully registered");
           // and then redirect the user 
-          navigate("/dashboard");
+          navigate("/dashboard/user");
         }
         
       }catch (err) {

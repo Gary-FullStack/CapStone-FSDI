@@ -35,7 +35,19 @@ export default function AdminOrders() {
       } catch (err) {
         console.log(err);
       }
-    }
+    };
+
+    const handleChange = async (orderId, value) => {
+        setChangedStatus(value);
+        try {
+          const { data } = await axios.put(`/order-status/${orderId}`, {
+            status: value,
+          });
+          getOrders();
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     return (
         <>
@@ -72,7 +84,7 @@ export default function AdminOrders() {
                             <td>
                             <Select
                                 bordered={false}
-                                onChange={(value) => setChangedStatus(o._id, value)}
+                                onChange={(value) => handleChange(o._id, value)}
                                 defaultValue={o?.status}
                             >
                                 {status.map((s, i) => (
