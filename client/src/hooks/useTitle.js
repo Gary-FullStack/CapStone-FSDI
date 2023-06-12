@@ -1,4 +1,4 @@
-// thos hook adds a loacation title for each page
+// this hook adds a loacation title for each page
 
 import { useEffect } from "react"
 
