@@ -22,6 +22,7 @@ import CategoriesList from "./pages/CategoriesList";
 import CategoryView from "./pages/CategoryView";
 import Cart from "./pages/Cart";
 import AdminOrders from "./pages/admin/Orders";
+import useTitle from './hooks/useTitle';
 
 // 404 page
 const PageNotFound = () => {
@@ -41,6 +42,7 @@ export default function App() {
       <Menu />
       <Toaster />
       <Routes>
+        
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/categories" element={<CategoriesList />} />
@@ -52,7 +54,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />   
 
 
-         {/* user private route */}
+        {/* user private route */}
         <Route path="/dashboard" element={<PrivateRoute/>} >
           <Route path="user" element={<Dashboard/>} />
           <Route path="user/profile" element={<UserProfile/>} /> 
@@ -70,6 +72,7 @@ export default function App() {
         </Route>
 
         <Route path="*" element={<PageNotFound />} replace />
+        
 
 
       </Routes>
