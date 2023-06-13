@@ -6,7 +6,9 @@
   "main": "./server/index.js",
   "type": "module",
   "scripts": {
-    "start": "cd ./server && node index.js"
+    "build": "cd server && npm install  && cd ../client && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
   },
   "keywords": [
     "capstone",
