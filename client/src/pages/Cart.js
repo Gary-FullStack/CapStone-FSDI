@@ -47,7 +47,7 @@ export default function Cart() {
           <div className="row">
             <div className="col-md-8">
               <div className="row">                  
-                {cart?.map((p, index) => (  
+                {cart?.map((p,index) => (  
                   <SmallProdCard index={index} p={p} />   
                 ))}
               </div>

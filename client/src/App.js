@@ -22,7 +22,7 @@ import CategoriesList from "./pages/CategoriesList";
 import CategoryView from "./pages/CategoryView";
 import Cart from "./pages/Cart";
 import AdminOrders from "./pages/admin/Orders";
-import useTitle from './hooks/useTitle';
+
 
 // 404 page
 const PageNotFound = () => {
