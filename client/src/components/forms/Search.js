@@ -20,7 +20,7 @@ export default function Search() {
   };
   
   return (
-    <form className="d-flex" onSubmit={handleSubmit}>
+    <form className="d-flex" id="search" onSubmit={handleSubmit}>
       <input
         type="search"
         style={{ borderRadius: "0px" }}

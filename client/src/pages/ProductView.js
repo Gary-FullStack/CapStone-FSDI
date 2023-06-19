@@ -48,13 +48,13 @@ export default function ProductView() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-9">
+        <div className="col-md-7">
           <div className="card mb-3">
             
                 <img className="card-img-top"
                   src={`${process.env.REACT_APP_API}/product/photo/${product._id}`}
                   alt={product.name}
-                  style={{ height: "500px", width: "100%", objectFit: "cover" }}
+                  style={{ height: "500px", width: "90%", objectFit: "cover" }}
                 />
              
 
@@ -108,7 +108,7 @@ export default function ProductView() {
           </div>
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-5">
           <h2>Related Products</h2>
           <hr />
           {related?.length < 1 && <p>Nothing found</p>}

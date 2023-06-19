@@ -1,8 +1,15 @@
-
+/* globals */
 * {
-    
-    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+     font-family: 'Roboto', sans-serif;
 }
+
 
 .active {
     text-decoration: underline !important;
@@ -19,8 +26,8 @@
 }
 
 .hoverable:hover {
-    border-right: 5px solid blue;
-    border-bottom: 5px solid blue;
+    border-right: 2px solid blue;
+    border-bottom: 2px solid blue;
     border-radius:  12px;
 
 }
@@ -31,6 +38,12 @@
 }
 
 
-.jumbotron {
-    color: crimson;
-}
+@media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+    }
+  
+    .col-sm-6 {
+      width: 100%;
+    }
+  }
