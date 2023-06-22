@@ -15,6 +15,9 @@ export default function Menu() {
     const categories  = useCategory();    
     const navigate = useNavigate();
 
+
+
+
    
 
     const logout = () => {
