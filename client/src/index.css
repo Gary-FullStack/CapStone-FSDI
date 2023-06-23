@@ -38,12 +38,3 @@
 }
 
 
-@media (max-width: 768px) {
-    .row {
-      flex-direction: column;
-    }
-  
-    .col-sm-6 {
-      width: 100%;
-    }
-  }

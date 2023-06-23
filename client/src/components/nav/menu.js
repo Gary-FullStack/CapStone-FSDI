@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Search from "../forms/Search";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import { Badge } from "antd";
+import "./Menu.css";
 
+export default function Menu()  {
 
-export default function Menu() {
 
     const [auth, setAuth] = useAuth();
     const [cart, setCart] = useCart();
@@ -15,75 +17,78 @@ export default function Menu() {
     const categories  = useCategory();    
     const navigate = useNavigate();
 
+    const [toggleMenu, setToggleMenu] = useState(false)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
+    const toggleNav = () => {
+      setToggleMenu(!toggleMenu)
+    }
 
+  //  Check screen width state and clean up for the toggle menu
+    useEffect(() => {
 
-   
+      const changeWidth = () => {
+        setScreenWidth(window.innerWidth);
+      }
+  
+      window.addEventListener('resize', changeWidth)
+
+      return () => {
+        window.removeEventListener('resize', changeWidth)
+    }
+  
+    }, [])
+
+    
+
 
     const logout = () => {
-      setAuth({ ...auth, user:null, token: "" });
-      localStorage.removeItem("auth");
-      navigate("/login");
+        setAuth({ ...auth, user:null, token: "" });
+        localStorage.removeItem("auth");
+        navigate("/login");
     };
 
-    // use <> React fragment
-  return  <>
 
-    <ul className="nav d-flex justify-content-between mb-2 sticky-top bg-light">
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/">HOME</NavLink>
-      </li>
 
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/shop">SHOP</NavLink>
-      </li> 
+    return (
+        <nav className="nav d-flex justify-content-between mb-2 sticky-top bg-light">
+        {/* logic for the toggle menu */}
+        {(toggleMenu || screenWidth > 500 ) && (
 
-       <div className="dropdown"> 
-          <li>
-              {/* eslint-disable-next-line */}
-              <a className="nav-link pointer dropdown-toggle"
-               data-bs-toggle="dropdown">CATEGORIES</a>  
+          <ul className="list">
+            <li className="items">
+                <NavLink className="nav-link" to="/">HOME</NavLink>
+            </li>
 
-                <ul className="dropdown-menu" style={{ height: "300px", overflow: "scroll"}}>
+            <li className="items">
+                <NavLink className="nav-link" to="/shop">SHOP</NavLink>
+            </li>
 
-                    <li className="nav-item">
-                     <NavLink className="nav-link" to="/categories">All categories</NavLink>
-                    </li>
-
-                  {categories?.map((c) => (
-                    <li key={c.name}>                      
-                      <NavLink className="nav-link" 
-                      to={`/category/${c.slug}`}>{c.name}</NavLink>                      
-                    </li> 
-                  ))}     
-                </ul>
-          </li>               
-        </div> 
-
-        <li className="nav-item mt-1">
-          <Badge
+            <li className="items">
+            <Badge
             count={cart?.length >= 1 ? cart.length : 0}
-            offset={[-5, 11]}
+            offset={[11, 9]}
             showZero={true}
-          >
+              >
             <NavLink className="nav-link" aria-current="page" to="/cart">
               CART
             </NavLink>
           </Badge>
-        </li>
+          </li>
 
-      <Search />
-      
-      {!auth?.user ? (
-          <>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">LOGIN</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/register">REGISTER</NavLink>
-            </li>          
-          </>
-      ) : (
+          <Search />
+
+
+          {!auth?.user ? (
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">LOGIN</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/register">REGISTER</NavLink>
+              </li>          
+            </>
+          ) : (
 
         <div className="dropdown"> 
           <li>
@@ -106,8 +111,20 @@ export default function Menu() {
               </ul>
           </li>               
         </div> 
-      )}
-
+      )}              
     </ul>
-  </>
+
+    )}
+          <button onClick={toggleNav} className="burger">Menu</button>
+
+
+  </nav>
+)
+    
+
+
+
 };
+
+
+
