@@ -1,11 +1,15 @@
+
+
+
 export default function Jumbotron({title, subTitle}) {
 
     return ( 
-        <div className="container-fluid jumbotron">
+        <div className="container-fluid">           
+        
             <div className="row">
-                <div className="col text-center p-5 bg-light">
-                    <h1>{title}</h1>
-                    <p className="lead">{subTitle}</p>
+                <div className="bgpic">                
+                    <h1 style={{color: "black", fontWeight: "bolder"}} >{title}</h1>
+                    <h3 style={{color:"black", fontWeight: "bold"}} >{subTitle}</h3>
                 </div>
             </div>
         </div>

@@ -26,32 +26,24 @@ export default function Menu()  {
 
   //  Check screen width state and clean up for the toggle menu
     useEffect(() => {
-
       const changeWidth = () => {
         setScreenWidth(window.innerWidth);
-      }
-  
+      }  
       window.addEventListener('resize', changeWidth)
-
       return () => {
         window.removeEventListener('resize', changeWidth)
     }
   
     }, [])
 
-    
-
-
     const logout = () => {
         setAuth({ ...auth, user:null, token: "" });
         localStorage.removeItem("auth");
         navigate("/login");
-    };
-
-
+    };    
 
     return (
-        <nav className="nav d-flex justify-content-between mb-2 sticky-top bg-light">
+        <nav className="sticky-top justify-content-between">
         {/* logic for the toggle menu */}
         {(toggleMenu || screenWidth > 500 ) && (
 
@@ -64,13 +56,35 @@ export default function Menu()  {
                 <NavLink className="nav-link" to="/shop">SHOP</NavLink>
             </li>
 
+            <div className="dropdown"> 
+          <li>
+              {/* eslint-disable-next-line */}
+              <a className="nav-link pointer dropdown-toggle items"
+               data-bs-toggle="dropdown">CATEGORIES</a>  
+
+                <ul className="dropdown-menu" style={{ height: "300px", overflow: "scroll"}}>
+
+                    <li >
+                     <NavLink className="nav-link" to="/categories">All categories</NavLink>
+                    </li>
+
+                  {categories?.map((c) => (
+                    <li key={c.name}>                      
+                      <NavLink className="nav-link" 
+                      to={`/category/${c.slug}`}>{c.name}</NavLink>                      
+                    </li> 
+                  ))}     
+                </ul>
+          </li>               
+        </div>
+
             <li className="items">
             <Badge
             count={cart?.length >= 1 ? cart.length : 0}
             offset={[11, 9]}
             showZero={true}
               >
-            <NavLink className="nav-link" aria-current="page" to="/cart">
+            <NavLink className="nav-link items" aria-current="page" to="/cart">
               CART
             </NavLink>
           </Badge>
@@ -81,11 +95,11 @@ export default function Menu()  {
 
           {!auth?.user ? (
             <>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">LOGIN</NavLink>
+              <li className="items">
+                <NavLink className="nav-link items" to="/login">LOGIN</NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/register">REGISTER</NavLink>
+              <li className="items">
+                <NavLink className="nav-link items" to="/register">REGISTER</NavLink>
               </li>          
             </>
           ) : (
@@ -93,12 +107,12 @@ export default function Menu()  {
         <div className="dropdown"> 
           <li>
               {/* eslint-disable-next-line */}
-              <a className="nav-link pointer dropdown-toggle" 
+              <a className="nav-link pointer dropdown-toggle items" 
               data-bs-toggle="dropdown">{auth?.user?.name?.toUpperCase()}</a>  
 
               <ul className="dropdown-menu">
                 
-                <li className="nav-item">
+                <li>
                   <NavLink className="nav-link" 
                   to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`
                   }>Dashboard</NavLink>
@@ -115,7 +129,7 @@ export default function Menu()  {
     </ul>
 
     )}
-          <button onClick={toggleNav} className="burger">Menu</button>
+    <button onClick={toggleNav} className="burger">Menu</button>
 
 
   </nav>
