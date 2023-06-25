@@ -24,6 +24,11 @@ export default function Menu()  {
       setToggleMenu(!toggleMenu)
     }
 
+    const closeNav = () => {
+      setToggleMenu(false)
+    }
+
+
   //  Check screen width state and clean up for the toggle menu
     useEffect(() => {
       const changeWidth = () => {
@@ -49,11 +54,11 @@ export default function Menu()  {
 
           <ul className="list">
             <li className="items">
-                <NavLink className="nav-link" to="/">HOME</NavLink>
+                <NavLink className="nav-link" to="/" onClick={closeNav} >HOME</NavLink>
             </li>
 
             <li className="items">
-                <NavLink className="nav-link" to="/shop">SHOP</NavLink>
+                <NavLink className="nav-link" to="/shop" onClick={closeNav} >SHOP</NavLink>
             </li>
 
             <div className="dropdown"> 
@@ -65,13 +70,13 @@ export default function Menu()  {
                 <ul className="dropdown-menu" style={{ height: "300px", overflow: "scroll"}}>
 
                     <li >
-                     <NavLink className="nav-link" to="/categories">All categories</NavLink>
+                     <NavLink className="nav-link" to="/categories" onClick={closeNav} >All categories</NavLink>
                     </li>
 
                   {categories?.map((c) => (
                     <li key={c.name}>                      
                       <NavLink className="nav-link" 
-                      to={`/category/${c.slug}`}>{c.name}</NavLink>                      
+                      to={`/category/${c.slug}`}onClick={closeNav} >{c.name}</NavLink>                      
                     </li> 
                   ))}     
                 </ul>
@@ -84,7 +89,7 @@ export default function Menu()  {
             offset={[11, 9]}
             showZero={true}
               >
-            <NavLink className="nav-link items" aria-current="page" to="/cart">
+            <NavLink className="nav-link items" aria-current="page" to="/cart" onClick={closeNav}>
               CART
             </NavLink>
           </Badge>
@@ -96,10 +101,10 @@ export default function Menu()  {
           {!auth?.user ? (
             <>
               <li className="items">
-                <NavLink className="nav-link items" to="/login">LOGIN</NavLink>
+                <NavLink className="nav-link items" to="/login" onClick={closeNav}>LOGIN</NavLink>
               </li>
               <li className="items">
-                <NavLink className="nav-link items" to="/register">REGISTER</NavLink>
+                <NavLink className="nav-link items" to="/register" onClick={closeNav}>REGISTER</NavLink>
               </li>          
             </>
           ) : (
@@ -115,7 +120,7 @@ export default function Menu()  {
                 <li>
                   <NavLink className="nav-link" 
                   to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`
-                  }>Dashboard</NavLink>
+                  } onClick={closeNav}>Dashboard</NavLink>
                 </li>
 
                 <li className="nav-item pointer">
